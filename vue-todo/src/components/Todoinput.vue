@@ -1,7 +1,9 @@
 <template>
-  <div>
-      <input type="text" v-model="newTodoItem">
-      <button v-on:click="addTodo">add</button>
+  <div class="inputBox shadow">
+      <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+      <span class="addContainer " v-on:click="addTodo">
+        <i class="fas fa-plus addBtn"></i>
+      </span>
   </div>
 <!--인풋 박스을 만들어서 특정 택스트 값을 입력을 하면 그 택스트 값을 로컬스트로지에 저장을 합니다.-->
 <!--인풋 박스에 입력된 값들이 스크립트딴에서 인식을 할려면 v-model이라는 디렉티브를 사용해야한다. v-model의 역할은 입력된값은 동적으로 vue 인스턴트 안에 맵핑하는 역할-->
@@ -38,6 +40,29 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  input:focus {
+    outline: none;
+  }
+  .inputBox{
+    background: #fff;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+  }
+  .inputBox input{
+    border-style: none;
+    font-size: 0.9rem;
+  }
+  .addContainer{
+    float: right;
+    background: linear-gradient(to right, #6478FB,#8763fb);
+    display: block;
+    width: 3rem;
+    border-radius: 0 5px 5px 0;
+  }
+  .addBtn{
+    color: #fff;
+    vertical-align: middle;
+  }
 </style>
