@@ -20,18 +20,9 @@ export default {
   methods:{
     addTodo: function(){
       if( this.newTodoItem != ''){
-          var obj = {completed: false, item: this.newTodoItem};
-          /*텍스트 값 플러스 그 그 텍스트값이 체크 되는지 되는지 안된는지에 대한 그 진의 값(불린값)를 저장하였다.*/
-          localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
-          /*newTodoItem에 값이 localStorage에 string으로 들어간다.*/
-          
-        /*data 안에 있는 newTodoItem을 접근한다. 보통 this는 자바스크립트 스코프를 지칭하는것이다.
-        하지만 여기에서의 this는 data와 methods가 들어간 이 인스턴스를 말하는것이고 접근할수 있다.*/       
-        
-        //  localStorage.setItem(this.newTodoItem,this.newTodoItem)
-        /*로컬스토리지에 저장하는 로직 
-        localStorage.setItem('key','value')키와 벨류로 setItem를 호출 할수 있습니다.*/
-        this.newTodoItem = '';
+      this.$emit('addTodoItem',this.newTodoItem);
+        // this.$emit('새로운 이벤트 이름',인자1, 인자2)이런 씩으로 상위 컴퍼넌트로 보낼수 있다.
+        // this.newTodoItem는 원래 하위컴퍼넌트에 있던 거니깐 상위 컴퍼넌트로 보내주기만 하면된다.
         /* 함수입력 값를 초기화 하는 로직 newTodoItem를 비워 두면 클릭시 newTodoItem을 수행하고 있던 곳이 비워진다.*/
         this.clearInput()
       }
