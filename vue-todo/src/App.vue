@@ -3,7 +3,7 @@
     <Todoheader></Todoheader>
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
     <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
-    <Todofooter></Todofooter>
+    <Todofooter v-on:clearAll="clearAllItems"></Todofooter>
       <!-- <TodoInput v-on: 하위 컴퍼넌트에서 발생시킨 이벤트 이름 = "현재 컴퍼넌트의 메서드 명"></TodoInput> -->
     <!--<TodoList v-bind:내려보낼 프롭스 속성 이름 = "현재 위치의 컴포넌트"></TodoList>--> 
   </div>
@@ -42,9 +42,14 @@ export default {
     toggleOneItem:function(todoItem, index){
       // todoItem.completed = !todoItem.completed;
       this.todoItems.splice[index].completed = !this.todoItems.splice[index].completed
+      /*위 코드는 받았던걸 다시 넘겨서 다시 가져 오는것이기 때문에 컴퍼넌트경계가 확실하지 않은 안좋은 안티코디라고 할수 있기 때문에 지워주고 변경했다.*/
       //로컬 스토리지의 데이터를 갱신한다.
       localStorage.removeItem(todoItem.item)
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    clearAllItems:function(){
+       localStorage.clear()
+       this.todoItems = [];
     },
   },
   created: function(){
