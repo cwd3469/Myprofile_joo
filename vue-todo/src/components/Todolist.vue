@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ul>
+      <transition-group name="list" tag="ul">
         <li class="shadow" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item">
           <!--todoitems 안에서 각각의 리스트를 todoItem 왕 index로 접근할 수 있다. 그리고 각각의 값을 매서드에 넘길수 있다.-->
           <i class="fas fa-check checkBtn" v-on:click="toggleComplete(todoItem, index)" v-bind:class="{checkBtnCompleted: todoItem.completed}"></i>
@@ -13,7 +13,7 @@
             <i class="fas fa-trash-alt"></i>
           </span>
         </li>
-      </ul>
+      </transition-group>
   </div>
 </template>
 
@@ -68,5 +68,14 @@ li{
   background: none;
   border: 0px;
   cursor: pointer;
+}
+/*리스트 아이템 트렌지션 효과*/
+
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
