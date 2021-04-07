@@ -2,7 +2,9 @@
   <div id="app">
     <Todoheader></Todoheader>
     <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
+    <TodoList v-bind:propsdata="todoItems" 
+    v-on:removeItem="removeOneItem" 
+    v-on:toggleItem="toggleOneItem"></TodoList>
     <Todofooter v-on:clearAll="clearAllItems"></Todofooter>
       <!-- <TodoInput v-on: 하위 컴퍼넌트에서 발생시킨 이벤트 이름 = "현재 컴퍼넌트의 메서드 명"></TodoInput> -->
     <!--<TodoList v-bind:내려보낼 프롭스 속성 이름 = "현재 위치의 컴포넌트"></TodoList>--> 
@@ -22,7 +24,7 @@ export default {
     }
   },
   methods:{
-    addOneItem:function(todoItem){
+    addOneItem(todoItem){
       /*하위 컴퍼넌트에서 넘어 온 인자값(this.newTodoItem)을 받아서 원래 있던 this.newTodoItem 대신 맵핑 시킨다.*/
        var obj = {completed: false, item: todoItem};
           /*텍스트 값 플러스 그 그 텍스트값이 체크 되는지 되는지 안된는지에 대한 그 진의 값(불린값)를 저장하였다.*/
@@ -34,12 +36,12 @@ export default {
        this.todoItems.push(obj)
        /*todoItems에 넣어준다. */
     },
-    removeOneItem:function(todoItem, index){
+    removeOneItem(todoItem, index){
       localStorage.removeItem(todoItem.item)
       /*todoItem가 객체이고 키값이랑 밸률이 동일하기 때문에 item만 삭제하면 된다.*/
       this.todoItems.splice(index,1);
     },
-    toggleOneItem:function(todoItem, index){
+    toggleOneItem(todoItem, index){
       // todoItem.completed = !todoItem.completed;
       this.todoItems.splice[index].completed = !this.todoItems.splice[index].completed
       /*위 코드는 받았던걸 다시 넘겨서 다시 가져 오는것이기 때문에 컴퍼넌트경계가 확실하지 않은 안좋은 안티코디라고 할수 있기 때문에 지워주고 변경했다.*/
@@ -47,12 +49,12 @@ export default {
       localStorage.removeItem(todoItem.item)
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems:function(){
+    clearAllItems(){
        localStorage.clear()
        this.todoItems = [];
     },
   },
-  created: function(){
+  created(){
     /*인스턴스가 바로 호출 되는 vue라이브사이클 훅 훅이란 생산되는 시점에 이 안에 있는 로직 호출이 되는 것 */
     if(localStorage.length > 0){
       for(var i = 0; i<localStorage.length ;i ++){
