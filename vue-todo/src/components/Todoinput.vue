@@ -9,47 +9,44 @@
         <h3 slot="header">
           경고!
           <i class="fas fa-times closeModalBtn" @click="showModal=false" ></i>
-        </h3>
-    <!--slot를 사용해서 특정 컨포넌트의 일부 ui들를 재사용 재설정 해줄수있다.  -->              
+        </h3>             
             <div slot="body">
                 너 뒤에 귀신있다.
             </div>
       </Modal>
-  </div>
-<!--인풋 박스을 만들어서 특정 택스트 값을 입력을 하면 그 택스트 값을 로컬스트로지에 저장을 합니다.-->
-<!--인풋 박스에 입력된 값들이 스크립트딴에서 인식을 할려면 v-model이라는 디렉티브를 사용해야한다. v-model의 역할은 입력된값은 동적으로 vue 인스턴트 안에 맵핑하는 역할-->
-<!--v-on:click의 역할 클릭했을때 동작하는 매소드를 입력하는 곳-->     
+  </div>    
 
 </template>
 
 <script>
 import Modal from './common/Modal'
 export default {
-  data: function(){
+  data(){
     return{
       newTodoItem:"",
       showModal:false
     }
   },
   methods:{
-    addTodo: function(){
+    addTodo(){
       if( this.newTodoItem != ''){
-      this.$emit('addTodoItem',this.newTodoItem);
-        // this.$emit('새로운 이벤트 이름',인자1, 인자2)이런 씩으로 상위 컴퍼넌트로 보낼수 있다.
-        // this.newTodoItem는 원래 하위컴퍼넌트에 있던 거니깐 상위 컴퍼넌트로 보내주기만 하면된다.
-        /* 함수입력 값를 초기화 하는 로직 newTodoItem를 비워 두면 클릭시 newTodoItem을 수행하고 있던 곳이 비워진다.*/
+      // this.$emit('addTodoItem',this.newTodoItem);
+      // const text = this.newTodoItem.trim();
+        /*원래 $emit으로 상위 컴퍼넌트인 APP.vue으로 보냈지만
+        mutations으로 관리를 해주면 되기때문에 $store로 stare.js로 mutation 함수 addOneItem에 newTodoItem를 보내면 된다.*/
+        this.$store.commit('addOneItem',this.newTodoItem);
         this.clearInput()
       }else{
         this.showModal = !this.showModal;
       }
 
     },
-    clearInput: function(){
+    clearInput(){
       this.newTodoItem = '';
     }
   },
   components: {
-    Modal: Modal
+    Modal
   }
 
 }
